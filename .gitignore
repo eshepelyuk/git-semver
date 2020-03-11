@@ -13,3 +13,5 @@
 /docs/_build
 /htmlcov
 /pylint.html
+venv
+

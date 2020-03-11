@@ -1,0 +1,3 @@
+DEFAULT_PREFIX = "v"
+
+ERR_NOT_A_REPO = 128
