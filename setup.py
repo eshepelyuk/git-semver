@@ -1,7 +1,5 @@
 from setuptools import setup, find_packages
 
-version = "0.0.1"
-
 setup(
     author='Ievgenii Shepeliuk',
     author_email='eshepeluyk@gmail.com',
@@ -20,9 +18,8 @@ setup(
     python_requires = ">=3.6",
     install_requires=['GitPython~=3.1', 'semantic-version~=2.8', 'click~=7.0'],
     extras_require={
-        'dev': ['pytest ~= 5.3']
+        'test': ['pytest ~= 5.3']
     },
     entry_points={'console_scripts': ['git-semver=git_semver.main:git_semver']},
-    url='https://github.com/hartym/git-semver',
-    download_url='https://github.com/hartym/git-semver/archive/{version}.tar.gz'.format(version=version)
+    url='https://github.com/eshepelyuk/git-semver'
 )
