@@ -25,6 +25,7 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
 @click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="")
 @click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="")
+@click.version_option()
 def git_semver(nxt, prefix, tag_add, tag_push):
     """
     Help for this tool

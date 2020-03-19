@@ -8,7 +8,10 @@ setup(
     description='Semantic versions management integrated to git.',
     license='Apache License, Version 2.0',
     name='git_semver',
-    version=version,
+
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
+
     long_description="",
     classifiers=[],
     packages=find_packages('src'),
