@@ -21,13 +21,15 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
 
 
 @click.command()
-@click.option('-e', '--predef', 'predef', help="")
-@click.option('-n', '--next', 'nxt', type=click.Choice(['patch', 'minor', 'major']), help="")
+@click.option('-e', '--current', 'current',
+              help="SemVer compatible string used as a current VERSION. Disables detection from Git.")
+@click.option('-n', '--next', 'nxt', type=click.Choice(['patch', 'minor', 'major']),
+              help="Generate new version, increasing one of current VERSION parts.")
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
 @click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="")
 @click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="")
 @click.version_option()
-def git_semver(predef, nxt, prefix, tag_add, tag_push):
+def git_semver(current, nxt, prefix, tag_add, tag_push):
     """
     Help for this tool
     """
@@ -38,7 +40,7 @@ def git_semver(predef, nxt, prefix, tag_add, tag_push):
         click.echo("fatal: Not a git repository", err=True)
         exit(ERR_NOT_A_REPO)
 
-    current_version = version_from_git(repo, prefix) if predef is None else Version(predef)
+    current_version = version_from_git(repo, prefix) if current is None else Version(current)
 
     if nxt is None:
         print_str = prefixed_version(current_version, prefix)

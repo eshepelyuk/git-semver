@@ -6,4 +6,7 @@ install: pip install .[test]
 
 script: pytest -s
 
-after_success: git-semver --version
+after_success:
+- "git-semver --help"
+- "git-semver --version"
+

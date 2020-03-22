@@ -2,19 +2,19 @@
 
 image:https://img.shields.io/travis/com/eshepelyuk/git-semver/master?logo=travis&style=for-the-badge[Travis (.com), window="_blank", link="https://travis-ci.com/eshepelyuk/git-semver"] image:https://img.shields.io/github/license/eshepelyuk/git-semver?logo=github&style=for-the-badge[GitHub, link="https://opensource.org/licenses/Apache-2.0", window="_blank"]
 
-This project is a fork and complete rewrite of https://github.com/hartym/git-semver[git-semver] by @hartym
+This project is a fork and complete rewrite of https://github.com/hartym/git-semver[git-semver] by https://github.com/hartym[@hartym]
 
 == Installation
 
-Latest version
-
+* for latest version
++
 [source]
 ----
 pip install git+https://github.com/eshepelyuk/git-semver.git
 ----
 
-or specific version, e.g. tagged `v1.0.0`
-
+* for specific version, e.g. tagged `v1.0.0`
++
 [source]
 ----
 pip install git+https://github.com/eshepelyuk/git-semver.git@v1.0.0
@@ -24,15 +24,16 @@ pip install git+https://github.com/eshepelyuk/git-semver.git@v1.0.0
 
 [source]
 ----
-$ git-semver --help
 Usage: git-semver [OPTIONS]
 
   Help for this tool
 
 Options:
+  -e, --current TEXT
   -n, --next [patch|minor|major]
   -p, --prefix TEXT
   -T, --tag-add
   -U, --tag-push
+  --version                       Show the version and exit.
   --help                          Show this message and exit.
 ----
