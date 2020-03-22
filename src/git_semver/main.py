@@ -8,7 +8,7 @@ from semantic_version import Version
 from . import ERR_NOT_A_REPO, DEFAULT_PREFIX
 
 
-def get_current_version(repo, prefix):
+def version_from_git(repo, prefix):
     try:
         return Version(
             repo.git.describe('--abbrev=0', '--first-parent', '--match', f'{prefix}[[:digit:]]*').lstrip(prefix))
@@ -21,12 +21,13 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
 
 
 @click.command()
+@click.option('-e', '--predef', 'predef', help="")
 @click.option('-n', '--next', 'nxt', type=click.Choice(['patch', 'minor', 'major']), help="")
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
 @click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="")
 @click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="")
 @click.version_option()
-def git_semver(nxt, prefix, tag_add, tag_push):
+def git_semver(predef, nxt, prefix, tag_add, tag_push):
     """
     Help for this tool
     """
@@ -37,7 +38,7 @@ def git_semver(nxt, prefix, tag_add, tag_push):
         click.echo("fatal: Not a git repository", err=True)
         exit(ERR_NOT_A_REPO)
 
-    current_version = get_current_version(repo, prefix)
+    current_version = version_from_git(repo, prefix) if predef is None else Version(predef)
 
     if nxt is None:
         print_str = prefixed_version(current_version, prefix)
