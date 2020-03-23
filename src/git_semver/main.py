@@ -26,7 +26,7 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
 @click.option('-n', '--next', 'nxt', type=click.Choice(['patch', 'minor', 'major']),
               help="Generate new version, increasing one of current VERSION parts.")
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
-@click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="Create annotated tag in git repository, formatted as ${PREFIX}${VERSION}.")
+@click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="Create annotated TAG in git repository, formatted as ${PREFIX}${VERSION}.")
 @click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="Pushes TAG created with -T/--tag-add option to git remote.")
 @click.version_option()
 def git_semver(current, nxt, prefix, tag_add, tag_push):
