@@ -22,16 +22,17 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
 
 @click.command()
 @click.option('-e', '--current', 'current',
-              help="SemVer compatible string used as a current VERSION. Disables detection from Git.")
+              help="SemVer compatible string used as a current VERSION. Disables detection from git repository tags.")
 @click.option('-n', '--next', 'nxt', type=click.Choice(['patch', 'minor', 'major']),
               help="Generate new version, increasing one of current VERSION parts.")
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
-@click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="")
-@click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="")
+@click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="Create annotated tag in git repository, formatted as ${PREFIX}${VERSION}.")
+@click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="Pushes TAG created with -T/--tag-add option to git remote.")
 @click.version_option()
 def git_semver(current, nxt, prefix, tag_add, tag_push):
     """
-    Help for this tool
+This tool allows to enable language-agnostic `fileless` release pipeline for your projects
+using `Git` as the only source of release metadata.
     """
 
     try:
