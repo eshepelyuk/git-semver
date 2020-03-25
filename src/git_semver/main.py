@@ -11,7 +11,7 @@ from . import ERR_NOT_A_REPO, DEFAULT_PREFIX
 def version_from_git(repo, prefix):
     try:
         return Version(
-            repo.git.describe('--abbrev=0', '--first-parent', '--match', f'{prefix}[[:digit:]]*').lstrip(prefix))
+            repo.git.describe('--abbrev=0', '--match', f'{prefix}[[:digit:]]*').lstrip(prefix))
     except GitCommandError:
         return Version('0.0.0')
 
