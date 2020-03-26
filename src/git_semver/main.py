@@ -4,6 +4,7 @@ import click
 from git import Repo
 from git.exc import GitCommandError
 from semantic_version import Version
+import sys, traceback
 
 from . import ERR_NOT_A_REPO, DEFAULT_PREFIX
 
@@ -27,9 +28,10 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
               help="Generate new version, increasing one of current VERSION parts.")
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
 @click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="Create annotated TAG in git repository, formatted as ${PREFIX}${VERSION}.")
-@click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="Pushes TAG created with -T/--tag-add option to git remote.")
+@click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="Push TAG created with -T/--tag-add option to git remote.")
+@click.option('-d', '--debug', 'is_debug', is_flag=True, help="Enable verbose output, also enables exception stacktrace.")
 @click.version_option()
-def git_semver(current, nxt, prefix, tag_add, tag_push):
+def git_semver(current, nxt, prefix, tag_add, tag_push, is_debug):
     """
 This tool allows to enable language-agnostic `fileless` release pipeline for your projects
 using `Git` as the only source of release metadata.
@@ -60,6 +62,8 @@ using `Git` as the only source of release metadata.
             if tag_push:
                 repo.git.push('origin', print_str)
         except:
+            if is_debug:
+                traceback.print_exc(file=sys.stderr)
             click.echo("fatal: unable to create tag", err=True)
             exit(ERR_NOT_A_REPO)
 
