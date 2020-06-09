@@ -26,12 +26,14 @@ def prefixed_version(version, prefix=DEFAULT_PREFIX):
               help="SemVer compatible string used as a current VERSION. Disables detection from git repository tags.")
 @click.option('-n', '--next', 'nxt', type=click.Choice(['patch', 'minor', 'major']),
               help="Generate new version, increasing one of current VERSION parts.")
+@click.option('-N', '--next-debug', 'nxt_debug',
+              is_flag=True, help="When used with -n/--next, also prints previous VERSION.")
 @click.option('-p', '--prefix', 'prefix', default=DEFAULT_PREFIX, help="")
 @click.option('-T', '--tag-add', 'tag_add', is_flag=True, help="Create annotated TAG in git repository, formatted as ${PREFIX}${VERSION}.")
 @click.option('-U', '--tag-push', 'tag_push', is_flag=True, help="Push TAG created with -T/--tag-add option to git remote.")
 @click.option('-d', '--debug', 'is_debug', is_flag=True, help="Enable verbose output, also enables exception stacktrace.")
 @click.version_option()
-def git_semver(current, nxt, prefix, tag_add, tag_push, is_debug):
+def git_semver(current, nxt, nxt_debug, prefix, tag_add, tag_push, is_debug):
     """
 This tool allows to enable language-agnostic `fileless` release pipeline for your projects
 using `Git` as the only source of release metadata.
@@ -48,6 +50,9 @@ using `Git` as the only source of release metadata.
     if nxt is None:
         print_str = prefixed_version(current_version, prefix)
     else:
+        if nxt_debug:
+            print(prefixed_version(current_version, prefix))
+
         nxt_version = current_version.next_patch()
         if nxt == 'minor':
             nxt_version = current_version.next_minor()

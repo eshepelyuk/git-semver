@@ -136,6 +136,24 @@ def test_next_major(click_runner):
     assert pf("3.0.0", f"{CUSTOM_PREFIX}-") in result.stdout
 
 
+def test_next_debug(click_runner):
+    git_repo(Path.cwd())
+
+    result = click_runner.invoke(git_semver, ["-n", "patch", "-N"])
+
+    assert result.exit_code == 0
+    lines = result.stdout.splitlines()
+    assert pf("1.1.1") == lines[0]
+    assert pf("1.1.2") == lines[1]
+
+    result = click_runner.invoke(git_semver, ["-n", "patch", "-N", "-p", f"{CUSTOM_PREFIX}-"])
+
+    assert result.exit_code == 0
+    lines = result.stdout.splitlines()
+    assert pf("2.2.2", f"{CUSTOM_PREFIX}-") == lines[0]
+    assert pf("2.2.3", f"{CUSTOM_PREFIX}-") == lines[1]
+
+
 def test_multiple_branches(click_runner):
     r = git_repo(Path.cwd())
 
